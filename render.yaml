@@ -1,0 +1,30 @@
+# Render Blueprint: myOilMitra — Executive Control Portal
+# Serves the Super Admin portal at /portal/ (and root /)
+# Use the SAME Neon DATABASE_URL as the main OilMitra service.
+services:
+  - type: web
+    name: myoilmitra
+    runtime: python
+    plan: free
+    region: singapore          # closest free region to India
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: TZ
+        value: Asia/Kolkata
+      - key: DB_TYPE
+        value: postgres
+      - key: DATABASE_URL     # paste the SAME Neon connection string as the main service
+        sync: false
+      - key: JWT_SECRET       # Render generates a random login-token secret
+        generateValue: true
+      - key: JWT_EXPIRE_DAYS
+        value: "30"
+      - key: CO2_PER_LITER
+        value: "2.8"
+      - key: BIODIESEL_YIELD
+        value: "0.92"
