@@ -24,6 +24,8 @@ services:
         generateValue: true
       - key: JWT_EXPIRE_DAYS
         value: "30"
+      - key: GOOGLE_MAPS_API_KEY  # Google Maps (web JS + native SDK) and Geocoding
+        sync: false
       - key: CO2_PER_LITER
         value: "2.8"
       - key: BIODIESEL_YIELD
